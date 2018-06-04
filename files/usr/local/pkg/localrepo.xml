@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE packagegui SYSTEM "../schema/packages.dtd">
+<?xml-stylesheet type="text/xsl" href="../xsl/package.xsl"?>
+<packagegui>
+	<copyright>
+<![CDATA[
+/*
+ * localrepo.xml
+ *
+ * part of pfSense (https://www.pfsense.org)
+ * Copyright (c) 2015 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2008 Mark J Crane
+ * All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+	]]>
+	</copyright>
+	<name>localrepo</name>
+	<title>LocalRepo Configuration Settings</title>
+	<include_file>/usr/local/pkg/localrepo.inc</include_file>
+	<aftersaveredirect>/pkg.php?xml=localrepo.xml</aftersaveredirect>
+	<menu>
+		<name>LocalRepo</name>
+		<section>System</section>
+		<configfile>localrepo.xml</configfile>
+		<url>/pkg.php?xml=localrepo.xml</url>
+	</menu>
+	<fields>
+		<field>
+			<type>listtopic</type>
+			<name>LocalRepo Information</name>
+		</field>
+		<field>
+			<type>info</type>
+			<description>
+			<![CDATA[
+				LocalRepo allows for an offline build of pfSense while still maintaining package installation and removel.<br /><br />
+				Disabling the default pfSense repositories stops calling out to update the installed packages and eliminates<br />
+				the updating webinterface page that would normally be present until it timeouts.<br /><br />
+				Enabling the "Disable default reositories" and not enabling a local repo will result<br />
+				in not having local package installs available while still stopping the callout for package updates.<br /><br />
+			]]>
+			</description>
+		</field>
+		<field>
+			<type>listtopic</type>
+			<name>LocalRepo Settings</name>
+		</field>
+		<field>
+			<fielddescr>Enable Local Repo</fielddescr>
+	    <fieldname>localrepoenable</fieldname>
+	    <type>checkbox</type>
+	    <description>Select this option to enable a local repository on the system.</description>
+		</field>
+		<field>
+			<fielddescr>Enable Default Repos</fielddescr>
+			<fieldname>defaultrepoenable</fieldname>
+			<type>checkbox</type>
+			<description>Select this option to enable default repositories on the system.</description>
+		</field>
+		<field>
+			<type>listtopic</type>
+			<name>Local Repository Configurations</name>
+		</field>
+		<field>
+			<fielddescr>Local Repo Directory</fielddescr>
+			<fieldname>repodirectory</fieldname>
+			<type>input</type>
+			<size>60</size>
+			<description>Enter the directory location of the new repository. (ex: /usr/local/etc/pkg/repos)</description>
+		</field>
+		<field>
+			<fielddescr>Local Repo Name</fielddescr>
+			<fieldname>reponame</fieldname>
+			<type>input</type>
+			<size>30</size>
+			<description>Enter the name of the new repository. (ex: local_repo)</description>
+		</field>
+		<field>
+			<fielddescr>Local Repo Config File</fielddescr>
+			<fieldname>repoconfigfile</fieldname>
+			<type>input</type>
+			<size>30</size>
+			<description>Enter the name of the new repository configuration file. (ex: local_repo)</description>
+		</field>
+		<field>
+			<fielddescr>Included Packages</fielddescr>
+			<fieldname>pkgs</fieldname>
+			<description>Packages to include in the local repository.</description>
+			<type>select_source</type>
+			<source><![CDATA[get_pkgs()]]></source>
+			<source_name>descr</source_name>
+			<source_value>pkgs</source_value>
+			<required/>
+		<field>
+ 			<fielddescr>Build repository</fielddescr>
+ 			<fieldname>build_repo</fieldname>
+ 			<type>button</type>
+ 			<description>Build local repository</description>
+		</field>
+		<field>
+			<type>listtopic</type>
+			<name>LocalRepo Functions</name>
+		</field>
+		<field>
+			<fielddescr>Update Local Repo</fielddescr>
+			<fieldname>update_repo</fieldname>
+			<type>button</type>
+			<description>Update local repository.  (Must be online)  </description>
+			<placeonbottom/>
+		</field>
+</packagegui>

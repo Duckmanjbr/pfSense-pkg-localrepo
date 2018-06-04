@@ -1,0 +1,5 @@
+pkg/localrepo.xml
+pkg/localrepo.inc 
+/etc/inc/priv/localrepo.priv.inc
+%%DATADIR%%/info.xml
+@dir /etc/inc/priv

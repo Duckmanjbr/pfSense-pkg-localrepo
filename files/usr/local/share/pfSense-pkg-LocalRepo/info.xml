@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<pfsensepkgs>
+	<package>
+		<name>LocalRepo</name>
+		<descr><![CDATA[This creates/builds a local repository on pfSense and disables all remote repositories.]]></descr>
+		<version>%%PKGVERSION%%</version>
+		<required_version>2.4</required_version>
+		<configurationfile>localrepo.xml</configurationfile>
+	</package>
+</pfsensepkgs>
