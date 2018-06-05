@@ -89,7 +89,7 @@
 		</field>
 		<field>
 			<fielddescr>Local Repo Config File</fielddescr>
-			<fieldname>repoconfigfile</fieldname>
+			<fieldname>localrepoconf</fieldname>
 			<type>input</type>
 			<size>30</size>
 			<description>Enter the name of the new repository configuration file. (ex: local_repo)</description>
@@ -101,7 +101,7 @@
 			<type>select_source</type>
 			<source><![CDATA[get_pkgs()]]></source>
 			<source_name>descr</source_name>
-			<source_value>pkgs</source_value>
+			<source_value>name</source_value>
 			<required/>
 		<field>
  			<fielddescr>Build repository</fielddescr>
