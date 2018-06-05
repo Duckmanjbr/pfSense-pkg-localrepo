@@ -45,11 +45,11 @@
 			<type>info</type>
 			<description>
 			<![CDATA[
-				LocalRepo allows for an offline build of pfSense while still maintaining package installation and removel.<br /><br />
-				Disabling the default pfSense repositories stops calling out to update the installed packages and eliminates<br />
+				LocalRepo allows for an offline build of pfSense while still maintaining normal package installation functions and removel.<br /><br />
+				Disabling the "Enable Default Repos" stops pfSense from calling out to update the installed packages and eliminates<br />
 				the updating webinterface page that would normally be present until it timeouts.<br /><br />
-				Enabling the "Disable default reositories" and not enabling a local repo will result<br />
-				in not having local package installs available while still stopping the callout for package updates.<br /><br />
+				Disabling the "Enable Default Repos" while also disabling "Enable Local Repos" will result<br />
+				in not having local package installs available and also stopping the callout for normal package updates.<br /><br />
 			]]>
 			</description>
 		</field>
@@ -96,7 +96,7 @@
 		</field>
 		<field>
 			<fielddescr>Included Packages</fielddescr>
-			<fieldname>pkgs</fieldname>
+			<fieldname>pkg_list</fieldname>
 			<description>Packages to include in the local repository.</description>
 			<type>select_source</type>
 			<source><![CDATA[get_pkgs()]]></source>
@@ -107,7 +107,7 @@
  			<fielddescr>Build repository</fielddescr>
  			<fieldname>build_repo</fieldname>
  			<type>button</type>
- 			<description>Build local repository</description>
+ 			<description>Build local repository: This could take an extended amount of time. [Please wait] </description>
 		</field>
 		<field>
 			<type>listtopic</type>

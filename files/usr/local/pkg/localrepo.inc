@@ -28,7 +28,7 @@
 function get_pkgs() {
 	/* Get a list of all available pfSense packages available to download.*/
 	global $pkgs;
-	if (!is_array($pkgs['name'])) {
+	if (!is_array($pkgs['name']['descr'])) {
 		$pkgs['name'] = array();
 		$output = shell_exec('pkg search "pfSense-pkg*" | awk '{ print $1 }'');
 		$pkgs['name'] = explode(" ", trim($output));
@@ -44,8 +44,8 @@ function create_local_repo_stucture() {
 }
 function fill_local_repo() {
 	/* Downlaod all selected packages into the local repository. */
-  exec('pkg update');
   exec('pkg fetch -y -d -o 'LOCAL_REPO' "pfSense-pkg*"');
+  exec('pkg update');
 }
 function create_local_repo() {
 	/* Create local repository from all remote packages downloaded. */
@@ -57,10 +57,12 @@ function create_local_repo() {
 function enable_local_repo(){
 	/* Enable local repository in pfSense. */
   exec('sed -i -e "s/enabled: no/enabled: yes/g" 'LOCAL_REPO_CONFIG);
+  disable_pfSense_repos();
 }
 function enable_pfSense_repos(){
 	/* Enable default pfSense repositories. */
   exec('sed -i -e "s/enabled: no/enabled: yes/g" /usr/local/share/pfSense/pkg/repos/pfSense-repo.conf');
+  disable_local_repo();
 }
 function disable_local_repo(){
 	/* Disable local repository in pfSense. */
@@ -74,18 +76,37 @@ function remove_local_repo(){
 	/* Clean-up/Remove local repository from pfSense */
   exec('rm -fR 'LOCAL_REPO_CONFIG LOCAL_REPO);
 }
+function check_pfSense_repo(){
+  if (($_POST['defaultrepoenable'] == 'disable')) {
+    enable_pfSense_repos();
+}
 
 
-if (($_POST['Submit'] == 'build_repo') {
-  remove_local_repo();
+if (($_POST['localrepoenable'] == 'enable')) {
+  enable_local_repo();
+} else {
+  disable_local_repo();
+}
+if (($_POST['defaultrepoenable'] == 'enable')) {
   enable_pfSense_repos();
+} else {
+  disable_pfSense_repos();
+}
+if (($_POST['Submit'] == 'build_repo') {
+  check_pfSense_repo();
+  remove_local_repo();
   create_local_repo_stucture();
   fill_local_repo();
   create_local_repo();
+  if (($_POST['defaultrepoenable'] == 'disable')) {
+    disable_pfSense_repos();
+  }
 }
 if (($_POST['Submit'] == 'update_repo') {
-  enable_pfSense_repos();
+  check_pfSense_repo();
   fill_local_repo();
-  exec('pkg update');
+  if (($_POST['defaultrepoenable'] == 'disable')) {
+    disable_pfSense_repos();
+  }
 }
 ?>
