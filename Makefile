@@ -36,8 +36,7 @@ do-install:
 	${INSTALL_DATA} ${FILESDIR}/etc/inc/priv/localrepo.priv.inc \
 		${STAGEDIR}/etc/inc/priv
 	${INSTALL_DATA} ${FILESDIR}${DATADIR}/info.xml \
-		${STAGEDIR}${DATADIR}
-	@${REINPLACE_CMD} -i '' -e "s|%%PKGVERSION%%|${PKGVERSION}|" \
 		${STAGEDIR}${DATADIR}/info.xml
+	@${REINPLACE_CMD} -i '' -e "s|%%PKGVERSION%%|${PKGVERSION}|" \
 
 .include <bsd.port.mk>
