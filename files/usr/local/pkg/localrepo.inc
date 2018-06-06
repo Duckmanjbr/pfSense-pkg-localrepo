@@ -35,6 +35,9 @@ function get_pkgs() {
     $pkgs['descr'] = arrey();
     $output = shell_exec('pkg search "pfSense-pkg*" | awk '{ print $2 }'')
     $pkgs['descr'] = explode(" ", trim($output));
+    /* Add "All" to list of packages to allow full download. */
+    $pkgs['name'] = 'All'
+    $pkgs['descr'] = 'Download all available pfSense packages'
 		return $pkgs;
 	}
 }
@@ -43,16 +46,23 @@ function create_local_repo_stucture() {
   mkdir("LOCAL_REPO", 0755);
 }
 function fill_local_repo() {
-	/* Downlaod all selected packages into the local repository. */
-  exec('pkg fetch -y -d -o 'LOCAL_REPO' "pfSense-pkg*"');
-  exec('pkg update');
+	/* Downlaod all packages into the local repository. */
+  if ($pkgs['name'] == 'All') {
+      shell_exec('pkg fetch -y -d -o 'LOCAL_REPO' "pfSense-pkg*"');
+  } else {
+    /* Downlaod all selected packages into the local repository. */
+    foreach ($pkgs['name'] as $pkg) {
+      shell_exec('pkg fetch -y -d -o 'LOCAL_REPO' '$pkg);
+    }
+}
+  shell_exec('pkg update');
 }
 function create_local_repo() {
 	/* Create local repository from all remote packages downloaded. */
   exec('pkg repo 'LOCAL_REPO);
   link("/usr/local/bin/localrepo.conf", LOCAL_REPO_CONFIG);
   chmod(LOCAL_REPO_CONFIG, 0755);
-  exec('pkg update');
+  shell_exec('pkg update');
 }
 function enable_local_repo(){
 	/* Enable local repository in pfSense. */
@@ -77,17 +87,19 @@ function remove_local_repo(){
   exec('rm -fR 'LOCAL_REPO_CONFIG LOCAL_REPO);
 }
 function check_pfSense_repo(){
-  if (($_POST['defaultrepoenable'] == 'disable')) {
+  if (($_POST['repo'] == 'local' | 'none')) {
     enable_pfSense_repos();
 }
 
 
-if (($_POST['localrepoenable'] == 'enable')) {
+if (($_POST['repo'] == 'local')) {
+  /* Sync repos with selection menu */
   enable_local_repo();
 } else {
   disable_local_repo();
 }
-if (($_POST['defaultrepoenable'] == 'enable')) {
+if (($_POST['repo'] == 'remote')) {
+  /* Sync repos with selection menu */
   enable_pfSense_repos();
 } else {
   disable_pfSense_repos();
@@ -98,14 +110,14 @@ if (($_POST['Submit'] == 'build_repo') {
   create_local_repo_stucture();
   fill_local_repo();
   create_local_repo();
-  if (($_POST['defaultrepoenable'] == 'disable')) {
+  if (($_POST['repo'] != 'remote')) {
     disable_pfSense_repos();
   }
 }
 if (($_POST['Submit'] == 'update_repo') {
   check_pfSense_repo();
   fill_local_repo();
-  if (($_POST['defaultrepoenable'] == 'disable')) {
+  if (($_POST['repo'] != 'remote')) {
     disable_pfSense_repos();
   }
 }

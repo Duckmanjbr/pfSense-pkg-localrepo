@@ -46,10 +46,11 @@
 			<description>
 			<![CDATA[
 				LocalRepo allows for an offline build of pfSense while still maintaining normal package installation functions and removel.<br /><br />
-				Disabling the "Enable Default Repos" stops pfSense from calling out to update the installed packages and eliminates<br />
-				the updating webinterface page that would normally be present until it timeouts.<br /><br />
-				Disabling the "Enable Default Repos" while also disabling "Enable Local Repos" will result<br />
-				in not having local package installs available and also stopping the callout for normal package updates.<br /><br />
+				Seleceting "None" will result in not having package installs available, stops pfSense from calling out to update the installed<br />
+				packages, and eliminates the homepage webinterface error that runs until timeout without internet connection.<br /><br />
+				Selecting "Local" allows for package installs from an onboard repository, stops pfSense from calling out to update the installed<br />
+				packages, and eliminates the homepage webinterface error that runs until timeout without internet connection.<br /><br />
+
 			]]>
 			</description>
 		</field>
@@ -58,41 +59,20 @@
 			<name>LocalRepo Settings</name>
 		</field>
 		<field>
-			<fielddescr>Enable Local Repo</fielddescr>
-	    <fieldname>localrepoenable</fieldname>
-	    <type>checkbox</type>
-	    <description>Select this option to enable a local repository on the system.</description>
-		</field>
-		<field>
-			<fielddescr>Enable Default Repos</fielddescr>
-			<fieldname>defaultrepoenable</fieldname>
-			<type>checkbox</type>
-			<description>Select this option to enable default repositories on the system.</description>
+			<fielddescr>Active Repository</fielddescr>
+	    <fieldname>repo</fieldname>
+			<type>select</type>
+     <options>
+     <option><name>None</name><value>none</value></option>
+     <option><name>Local</name><value>local</value></option>
+     <option><name>Remote</name><value>remote</value></option>
+     </options>
+     <description>Select the desired repository for pfSense to use.<description>
+   <size>12</size> (optional)
 		</field>
 		<field>
 			<type>listtopic</type>
 			<name>Local Repository Configurations</name>
-		</field>
-		<field>
-			<fielddescr>Local Repo Directory</fielddescr>
-			<fieldname>repodirectory</fieldname>
-			<type>input</type>
-			<size>60</size>
-			<description>Enter the directory location of the new repository. (ex: /usr/local/etc/pkg/repos)</description>
-		</field>
-		<field>
-			<fielddescr>Local Repo Name</fielddescr>
-			<fieldname>reponame</fieldname>
-			<type>input</type>
-			<size>30</size>
-			<description>Enter the name of the new repository. (ex: local_repo)</description>
-		</field>
-		<field>
-			<fielddescr>Local Repo Config File</fielddescr>
-			<fieldname>localrepoconf</fieldname>
-			<type>input</type>
-			<size>30</size>
-			<description>Enter the name of the new repository configuration file. (ex: local_repo)</description>
 		</field>
 		<field>
 			<fielddescr>Included Packages</fielddescr>
@@ -107,7 +87,7 @@
  			<fielddescr>Build repository</fielddescr>
  			<fieldname>build_repo</fieldname>
  			<type>button</type>
- 			<description>Build local repository: This could take an extended amount of time. [Please wait] </description>
+ 			<description>Re/Build local repository with packages selected above. This could take an extended amount of time. [Please wait] </description>
 		</field>
 		<field>
 			<type>listtopic</type>
@@ -117,7 +97,7 @@
 			<fielddescr>Update Local Repo</fielddescr>
 			<fieldname>update_repo</fieldname>
 			<type>button</type>
-			<description>Update local repository.  (Must be online)  </description>
+			<description>Update local repository with packages selected above.  (pfSense must be online)  </description>
 			<placeonbottom/>
 		</field>
 </packagegui>
