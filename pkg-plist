@@ -1,6 +1,0 @@
-pkg/localrepo.xml
-pkg/localrepo.inc
-/etc/inc/priv/localrepo.priv.inc
-/usr/local/bin/localrepo/localrepo.conf
-%%DATADIR%%/info.xml
-@dir /etc/inc/priv
