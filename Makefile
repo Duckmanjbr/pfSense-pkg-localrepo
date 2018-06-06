@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	pfSense-pkg-LocalRepo
-PORTVERSION= 1.0
+PORTVERSION= 0.1
 PORTREVISION= 1
 CATEGORIES=	sysutils
 MASTER_SITES=	# empty
@@ -36,4 +36,5 @@ do-install:
 		${STAGEDIR}${DATADIR}
 	@${REINPLACE_CMD} -i '' -e "s|%%PKGVERSION%%|${PKGVERSION}|" \
 		${STAGEDIR}${DATADIR}/info.xml
+		
 .include <bsd.port.mk>
