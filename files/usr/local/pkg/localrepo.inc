@@ -66,21 +66,41 @@ function create_local_repo() {
 }
 function enable_local_repo(){
 	/* Enable local repository in pfSense. */
-  exec('sed -i -e "s/enabled: no/enabled: yes/g" 'LOCAL_REPO_CONFIG);
+  file_put_contents(LOCAL_REPO_CONFIG, implode('',
+    array_map(function($data) {
+      return stristr($data,'  enabled: no') ? "  enabled: yes\n" : $data;
+    }, file(LOCAL_REPO_CONFIG))
+  ));
+  #exec('sed -i -e "s/enabled: no/enabled: yes/g" 'LOCAL_REPO_CONFIG);
   disable_pfSense_repos();
 }
 function enable_pfSense_repos(){
 	/* Enable default pfSense repositories. */
-  exec('sed -i -e "s/enabled: no/enabled: yes/g" /usr/local/share/pfSense/pkg/repos/pfSense-repo.conf');
+  file_put_contents('/usr/local/share/pfSense/pkg/repos/pfSense-repo.conf', implode('',
+    array_map(function($data) {
+      return stristr($data,'  enabled: no') ? "  enabled: yes\n" : $data;
+    }, file('/usr/local/share/pfSense/pkg/repos/pfSense-repo.conf'))
+  ));
+  #exec('sed -i -e "s/enabled: no/enabled: yes/g" /usr/local/share/pfSense/pkg/repos/pfSense-repo.conf');
   disable_local_repo();
 }
 function disable_local_repo(){
 	/* Disable local repository in pfSense. */
-  exec('sed -i -e "s/enabled: yes/enabled: no/g" 'LOCAL_REPO_CONFIG);
+  file_put_contents(LOCAL_REPO_CONFIG, implode('',
+    array_map(function($data) {
+      return stristr($data,'  enabled: yes') ? "  enabled: no\n" : $data;
+    }, file(LOCAL_REPO_CONFIG))
+  ));
+  #exec('sed -i -e "s/enabled: yes/enabled: no/g" 'LOCAL_REPO_CONFIG);
 }
 function disable_pfSense_repos(){
 	/* Disable default pfSense repositories. */
-  exec('sed -i -e "s/enabled: yes/enabled: no/g" /usr/local/share/pfSense/pkg/repos/pfSense-repo.conf');
+  file_put_contents('/usr/local/share/pfSense/pkg/repos/pfSense-repo.conf', implode('',
+    array_map(function($data) {
+      return stristr($data,'  enabled: yes') ? "  enabled: no\n" : $data;
+    }, file('/usr/local/share/pfSense/pkg/repos/pfSense-repo.conf'))
+  ));
+  #exec('sed -i -e "s/enabled: yes/enabled: no/g" /usr/local/share/pfSense/pkg/repos/pfSense-repo.conf');
 }
 function remove_local_repo(){
 	/* Clean-up/Remove local repository from pfSense */
