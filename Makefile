@@ -29,7 +29,7 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/pkg
 	${MKDIR} ${STAGEDIR}${PREFIX}/bin/localrepo
 	${MKDIR} ${STAGEDIR}/etc/inc/priv
-	${MKDIR} ${STAGEDIR}${DATADIR}
+	${MKDIR} ${STAGEDIR}/share/pfSense-pkg-LocalRepo
 	${INSTALL_DATA} -m 0644 ${FILESDIR}${PREFIX}/pkg/localrepo.xml \
 		${STAGEDIR}${PREFIX}/pkg
 	${INSTALL_DATA} ${FILESDIR}${PREFIX}/pkg/localrepo.inc \
