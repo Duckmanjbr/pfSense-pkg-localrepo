@@ -39,8 +39,8 @@ do-install:
 	${INSTALL_DATA} ${FILESDIR}/etc/inc/priv/localrepo.priv.inc \
 		${STAGEDIR}/etc/inc/priv
 	${INSTALL_DATA} ${FILESDIR}${DATADIR}/info.xml \
-		${STAGEDIR}${DATADIR}
+		${STAGEDIR}/share/pfSense-pkg-LocalRepo
 	@${REINPLACE_CMD} -i '' -e "s|%%PKGVERSION%%|${PKGVERSION}|" \
-		${STAGEDIR}${DATADIR}/info.xml
-		
+		${STAGEDIR}/share/pfSense-pkg-LocalRepo/info.xml
+
 .include <bsd.port.mk>
