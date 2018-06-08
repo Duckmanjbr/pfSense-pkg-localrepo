@@ -25,7 +25,7 @@ do-extract:
 do-install:
 	# {STAGEDIR}= /root/pfSense-pkg-localrepo/work/stage
 	# {PREFIX}= /usr/local
-	# {DATADIR}= pfSense-pkg-LocalRepo
+	# {DATADIR}= /usr/local/share/pfSense-pkg-LocalRepo
 	${MKDIR} ${STAGEDIR}${PREFIX}/pkg
 	${MKDIR} ${STAGEDIR}${PREFIX}/bin/localrepo
 	${MKDIR} ${STAGEDIR}/etc/inc/priv
@@ -42,4 +42,5 @@ do-install:
 		${STAGEDIR}${DATADIR}
 	@${REINPLACE_CMD} -i '' -e "s|%%PKGVERSION%%|${PKGVERSION}|" \
 		${STAGEDIR}${DATADIR}/info.xml
+		
 .include <bsd.port.mk>
