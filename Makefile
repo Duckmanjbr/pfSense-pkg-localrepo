@@ -23,10 +23,12 @@ do-extract:
 	${MKDIR} ${WRKSRC}
 
 do-install:
+	# {STAGEDIR}= /root/pfSense-pkg-localrepo/work/stage
+	# {PREFIX}= /usr/local
+	# {DATADIR}= pfSense-pkg-LocalRepo
 	${MKDIR} ${STAGEDIR}${PREFIX}/pkg
 	${MKDIR} ${STAGEDIR}${PREFIX}/bin/localrepo
 	${MKDIR} ${STAGEDIR}/etc/inc/priv
-	${MKDIR} ${STAGEDIR}/share
 	${MKDIR} ${STAGEDIR}${DATADIR}
 	${INSTALL_DATA} -m 0644 ${FILESDIR}${PREFIX}/pkg/localrepo.xml \
 		${STAGEDIR}${PREFIX}/pkg
