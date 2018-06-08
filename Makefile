@@ -28,7 +28,7 @@ do-install:
 	${MKDIR} ${STAGEDIR}/etc/inc/priv
 	${MKDIR} ${STAGEDIR}${DATADIR}
 	${INSTALL_DATA} -m 0644 ${FILESDIR}${PREFIX}/pkg/localrepo.xml \
-		${STAGEDIR}/pkg
+		${STAGEDIR}${PREFIX}/pkg
 	${INSTALL_DATA} ${FILESDIR}${PREFIX}/pkg/localrepo.inc \
 		${STAGEDIR}${PREFIX}/pkg
 	${INSTALL_DATA} ${FILESDIR}${PREFIX}/bin/localrepo/localrepo.conf \
