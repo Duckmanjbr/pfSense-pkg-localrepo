@@ -40,6 +40,8 @@ do-install:
 		${STAGEDIR}/etc/inc/priv
 	${INSTALL_DATA} ${FILESDIR}${DATADIR}/info.xml \
 		${STAGEDIR}/share/pfSense-pkg-LocalRepo
+
+post-build:
 	@${REINPLACE_CMD} -i '' -e "s|%%PKGVERSION%%|${PKGVERSION}|" \
 		${STAGEDIR}/share/pfSense-pkg-LocalRepo/info.xml
 
