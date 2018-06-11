@@ -1,14 +1,16 @@
 # $FreeBSD$
 
-PORTNAME=	pfSense-pkg-LocalRepo
+PORTNAME=	pfSense-pkg-localrepo
 PORTVERSION= 0.1
-PORTREVISION= 1
+PORTREVISION= 0
 CATEGORIES=	sysutils
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=
+USE_GITHUB=	yes
+GH_ACCOUNT=	duckmanjbr
+MAINTAINER= duckmanjbr@gmail.com 
 COMMENT=	Create local repositories on pfSense
 
 LICENSE=	APACHE20
