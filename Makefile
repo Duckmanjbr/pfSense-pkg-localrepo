@@ -10,7 +10,7 @@ EXTRACT_ONLY=	# empty
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	duckmanjbr
-MAINTAINER= duckmanjbr@gmail.com 
+MAINTAINER= duckmanjbr@gmail.com
 COMMENT=	Create local repositories on pfSense
 
 LICENSE=	APACHE20
@@ -36,8 +36,8 @@ do-install:
 		${STAGEDIR}${PREFIX}/pkg
 	${INSTALL_DATA} ${FILESDIR}${PREFIX}/pkg/localrepo.inc \
 		${STAGEDIR}${PREFIX}/pkg
-	${INSTALL_DATA} ${FILESDIR}${PREFIX}/bin/localrepo/localrepo.conf \
-		${STAGEDIR}${PREFIX}/bin/localrepo
+	${INSTALL_DATA} ${FILESDIR}${PREFIX}/pkg/localrepo.conf \
+		${STAGEDIR}${PREFIX}/pkg 
 	${INSTALL_DATA} ${FILESDIR}/etc/inc/priv/localrepo.priv.inc \
 		${STAGEDIR}/etc/inc/priv
 	${INSTALL_DATA} ${FILESDIR}${DATADIR}/info.xml \
